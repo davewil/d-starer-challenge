@@ -23,7 +23,7 @@ namespace CodingChallenge
                     if (index != m) continue;
                     yield return (int[])result.Clone();
                     break;
-                }
+                }   
             }
         }
 

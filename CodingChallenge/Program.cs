@@ -11,14 +11,16 @@ namespace CodingChallenge
         static void Main(string[] args)
         {
             var stopWatch = Stopwatch.StartNew();
+
             var productOfPrimes = new List<ProductOfPrimes>();
 
             var primes = SieveOfEratosthenes.GetAllPrimesLessThan(1000)
                 .Where(x => x >= 100);
 
-            var testMatchForward = Task.Run(() => TestForMatch(primes.ToArray(), productOfPrimes, true));
-            var testMatchReverse = Task.Run(() => TestForMatch(primes.Reverse().ToArray(), productOfPrimes, true));
-            var testMatchShuffle = Task.Run(() => TestForMatch(primes.ToArray().Shuffle(), productOfPrimes, true));
+            var exitOnFirstMatch = true;
+            var testMatchForward = Task.Run(() => TestForMatch(primes.ToArray(), productOfPrimes, exitOnFirstMatch));
+            var testMatchReverse = Task.Run(() => TestForMatch(primes.Reverse().ToArray(), productOfPrimes, exitOnFirstMatch));
+            var testMatchShuffle = Task.Run(() => TestForMatch(primes.ToArray().Shuffle(), productOfPrimes, exitOnFirstMatch));
 
             var result = Task.WhenAny(testMatchForward, testMatchReverse, testMatchShuffle).GetAwaiter().GetResult();
             stopWatch.Stop();
